@@ -8,7 +8,7 @@ import (
 )
 
 // log is the default package logger
-var log = logging.MustGetLogger("activity-pushover")
+var flogoLoggger = logging.MustGetLogger("activity-pushover")
 
 const (
 	ivUserKey      = "userKey"
@@ -30,8 +30,7 @@ type PushoverActivity struct {
 
 // NewActivity create & register activity
 func NewActivity(metadata *activity.Metadata) activity.Activity {
-	md := activity.NewMetadata(metadata)
-	return &PushoverActivity{metadata: md}
+	return &PushoverActivity{metadata: metadata}
 }
 
 // Metadata implements activity.Activity.Metadata
@@ -53,14 +52,14 @@ func (a *PushoverActivity) Eval(context activity.Context) (done bool, err error)
 
 	// Check if mandatory credentials are set in config
 	if userKey == nil || authToken == nil {
-		log.Error("Missing Pushover Credentials")
-		err := activity.Error("Credential Config not specified")
+		flogoLoggger.Error("Missing Pushover Credentials")
+		err := activity.NewError("Credential Config not specified", "", nil)
 		return false, err
 	}
 
 	// Check if there is a message to send
 	if message == nil {
-		log.Error("No Message to Send")
+		flogoLoggger.Error("No Message to Send")
 		context.SetOutput(ovStatus, "NO_MSG")
 		return true, nil
 	}
@@ -68,7 +67,7 @@ func (a *PushoverActivity) Eval(context activity.Context) (done bool, err error)
 	// Now let's try to connect
 	po, err := pushover.NewPushover(authToken.(string), userKey.(string))
 	if err != nil {
-		log.Error("PushOver Connection Error : ", err)
+		flogoLoggger.Error("PushOver Connection Error : ", err)
 		context.SetOutput(ovStatus, "CONNECT_ERR")
 		return true, nil
 	}
@@ -103,9 +102,9 @@ func (a *PushoverActivity) Eval(context activity.Context) (done bool, err error)
 	}
 
 	if preq, presp, err := po.Push(&m); err != nil {
-		log.Error("Push Message Error : ", err)
-		log.Error("Sent : ", preq)
-		log.Error("Received : ", presp)
+		flogoLoggger.Error("Push Message Error : ", err)
+		flogoLoggger.Error("Sent : ", preq)
+		flogoLoggger.Error("Received : ", presp)
 		context.SetOutput(ovStatus, "PUSH_ERR")
 		return true, nil
 	}

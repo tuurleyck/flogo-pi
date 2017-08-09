@@ -3,6 +3,7 @@ package pushover
 import (
 	"io/ioutil"
 	"testing"
+	"log"
 
 	"github.com/TIBCOSoftware/flogo-contrib/action/flow/test"
 	"github.com/TIBCOSoftware/flogo-lib/core/activity"
@@ -44,16 +45,15 @@ func TestEval(t *testing.T) {
 		}
 	}()
 
-	md := activity.NewMetadata(getActivityMetadata())
-	act := &PushoverActivity{metadata: md}
+	act := &PushoverActivity{getActivityMetadata()}
+	tc := test.NewTestActivityContext(getActivityMetadata())
 
-	tc := test.NewTestActivityContext(md)
 	//setup attrs
 	tc.SetInput(ivUserKey, "[YOUR_PUSHOVER_USER_KEY]")
 	tc.SetInput(ivAuthToken, "[YOUR_PUSHOVER_APP_TOKEN")
 	tc.SetInput(ivMessage, "Go Flogo")
 
 	act.Eval(tc)
-
+	log.Printf("TestEval successfull. Output [%d]", tc.GetOutput("status"))
 	//check result attr
 }
