@@ -29,9 +29,9 @@ type PushoverActivity struct {
 }
 
 // init create & register activity
-func init() {
+func NewActivity(metadata *activity.Metadata) activity.Activity {
 	md := activity.NewMetadata(jsonMetadata)
-	activity.Register(&PushoverActivity{metadata: md})
+	return &PushoverActivity{metadata: md}
 }
 
 // Metadata implements activity.Activity.Metadata
