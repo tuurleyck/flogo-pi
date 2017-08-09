@@ -23,12 +23,12 @@ const (
 	ovStatus       = "status"
 )
 
-// MyActivity is a stub for your Activity implementation
+// PushoverActivity is a stub for your Activity implementation
 type PushoverActivity struct {
 	metadata *activity.Metadata
 }
 
-// init create & register activity
+// NewActivity create & register activity
 func NewActivity(metadata *activity.Metadata) activity.Activity {
 	md := activity.NewMetadata(metadata)
 	return &PushoverActivity{metadata: md}
