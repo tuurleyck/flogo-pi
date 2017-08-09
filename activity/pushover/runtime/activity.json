@@ -1,6 +1,4 @@
-package pushover
-
-var jsonMetadata = `{
+{
   "name": "pushover",
   "version": "0.0.1",
   "description": "Simple PushOver Notification Activity",
@@ -50,4 +48,4 @@ var jsonMetadata = `{
       "type": "string"
     }
   ]
-}`
+}
