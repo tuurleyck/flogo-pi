@@ -11,16 +11,16 @@ import (
 var log = logging.MustGetLogger("activity-pushover")
 
 const (
-	ivUserKey = "userKey"
-	ivAuthToken = "authToken"
-	ivMessage = "message"
+	ivUserKey      = "userKey"
+	ivAuthToken    = "authToken"
+	ivMessage      = "message"
 	ivMessageTitle = "messageTitle"
-	ivDevice = "device"
-	ivSound = "sound"
-	ivURL = "url"
-	ivURLTitle = "urlTitle"
-	ivPriority = "priority"
-	ovStatus = "status"
+	ivDevice       = "device"
+	ivSound        = "sound"
+	ivURL          = "url"
+	ivURLTitle     = "urlTitle"
+	ivPriority     = "priority"
+	ovStatus       = "status"
 )
 
 // MyActivity is a stub for your Activity implementation
@@ -30,7 +30,7 @@ type PushoverActivity struct {
 
 // init create & register activity
 func NewActivity(metadata *activity.Metadata) activity.Activity {
-	md := activity.NewMetadata(jsonMetadata)
+	md := activity.NewMetadata(metadata)
 	return &PushoverActivity{metadata: md}
 }
 
@@ -54,7 +54,7 @@ func (a *PushoverActivity) Eval(context activity.Context) (done bool, err error)
 	// Check if mandatory credentials are set in config
 	if userKey == nil || authToken == nil {
 		log.Error("Missing Pushover Credentials")
-		err := activity.NewError("Credential Config not specified")
+		err := activity.Error("Credential Config not specified")
 		return false, err
 	}
 
@@ -78,13 +78,13 @@ func (a *PushoverActivity) Eval(context activity.Context) (done bool, err error)
 	m.Message = message.(string)
 	// TURN OFF priority until I understand issue on flogo-web
 	/*
-	if context.GetInput(ivPriority) != nil {
-		m.Priority = context.GetInput(ivPriority).(int)
-	} else {
+		if context.GetInput(ivPriority) != nil {
+			m.Priority = context.GetInput(ivPriority).(int)
+		} else {
 	*/
-	m.Priority = 0;
+	m.Priority = 0
 	//}
-	
+
 	if messageTitle != nil {
 		m.Title = messageTitle.(string)
 	}
