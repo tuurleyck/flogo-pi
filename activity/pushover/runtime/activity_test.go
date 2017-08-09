@@ -1,9 +1,10 @@
 package pushover
 
 import (
-	"github.com/TIBCOSoftware/flogo-lib/flow/activity"
-	"github.com/TIBCOSoftware/flogo-lib/flow/test"
 	"testing"
+
+	"github.com/TIBCOSoftware/flogo-lib/core/activity"
+	"github.com/TIBCOSoftware/flogo-contrib/action/flow/test"
 )
 
 func TestRegistered(t *testing.T) {
@@ -18,12 +19,12 @@ func TestRegistered(t *testing.T) {
 
 func TestEval(t *testing.T) {
 
-	//defer func() {
-	//	if r := recover(); r != nil {
-	//		t.Failed()
-	//		t.Errorf("panic during execution: %v", r)
-	//	}
-	//}()
+	defer func() {
+		if r := recover(); r != nil {
+			t.Failed()
+			t.Errorf("panic during execution: %v", r)
+		}
+	}()
 
 	md := activity.NewMetadata(jsonMetadata)
 	act := &PushoverActivity{metadata: md}
