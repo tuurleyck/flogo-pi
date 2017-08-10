@@ -20,7 +20,7 @@ func (a *MyActivity) Metadata() *activity.Metadata {
 }
 
 // Eval implements activity.Activity.Eval
-func (a *MyActivity) Eval(context activity.Context) (done bool, err error)  {
+func (a *MyActivity) Eval(context activity.Context) (done bool, err error) {
 
 	// do eval
 
