@@ -53,7 +53,7 @@ func TestEval(t *testing.T) {
 	tc.SetInput(ivAuthToken, "[YOUR_PUSHOVER_APP_TOKEN")
 	tc.SetInput(ivMessage, "Go Flogo")
 
-	//act.Eval(tc)
+	act.Eval(tc)
 	log.Printf("TestEval successfull. Output [%d]", tc.GetOutput("status"))
 	//check result attr
 }

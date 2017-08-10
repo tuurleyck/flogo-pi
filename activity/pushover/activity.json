@@ -1,9 +1,10 @@
 {
-  "name": "pushover",
-  "version": "0.0.1",
+  "name": "Send a notification to PushOver",
+  "version": "0.0.2",
   "type": "flogo:activity",
+  "ref": "github.com/tuurleyck/flogo-pi/activity/pushover",
   "description": "Simple activity to send notifications to devices across PushOver Service",
-  "author": "Eric Carlier <ecarlier@tibco.com>",
+  "author": "Arthur Eyckerman <arthur@aeyckerman.com>",
   "inputs":[
     {
       "name": "userKey",
